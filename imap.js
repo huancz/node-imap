@@ -388,13 +388,15 @@ ImapConnection.prototype.connect = function(loginCb) {
               default:
                 // fetches without header or body (part) retrievals
                 if (/^FETCH/.test(data[2])) {
-                  var curReq = self._state.requests[0],
-                      msg = new ImapMessage();
-                  parseFetch(data[2].substring(data[2].indexOf("(")+1,
-                                               data[2].lastIndexOf(")")),
-                             "", msg);
-                  curReq._fetcher.emit('message', msg);
-                  msg.emit('end');
+                  if (curReq) {
+		    var curReq = self._state.requests[0],
+			msg = new ImapMessage();
+		    parseFetch(data[2].substring(data[2].indexOf("(")+1,
+						 data[2].lastIndexOf(")")),
+			       "", msg);
+		    curReq._fetcher.emit('message', msg);
+		    msg.emit('end');
+		  }
                 }
             }
           }
