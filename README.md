@@ -363,6 +363,13 @@ ImapConnection Functions
 
 * **delKeywords**(Integer/String/Array, String/Array, Function) - _(void)_ - Removes the specified keyword(s) from the message(s) identified by the first parameter. The first parameter can either be an Integer for a single message ID, a String for a message ID range (e.g. '2504:2507' or '*' or '2504:*'), or an Array containing any number of the aforementioned Integers and/or Strings. The second parameter can either be a String containing a single keyword or can be an Array of keywords. The Function parameter is the callback with one parameter: the error (null if none).
 
+Useful tips
+-----------
+
+### Finding id of last message
+
+Do a fetch command with first argument set to "\*" (RFC3501 defines \* as "the largest number in use" when used in sequence). Using \_uidnext private member of Box object for this task is unreliable, some servers leave this at 0.
+
 
 TODO
 ----
